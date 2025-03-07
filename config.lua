@@ -1,115 +1,57 @@
 Config = {}
 
+Config.ShowMarker = true
+Config.DrawMarker = 10
+Config.MaxRetries = {
+    Exam = 3,
+    Practical = 2
+}
+
+Config.Language = 'sv'
+
 Config.SpeedLimits = {
     City = 80,
-    Freeway = 110,
-    Residence = 50
+    Highway = 110,
 }
 
 Config.DMV = {
     { 
-        Pos   = {x = 239.471, y = -1380.960, z = 32.741}
-        Licenses = { 'bike', 'car'},
-        VehicleSpawnPoint =  = {x = 249.409, y = -1407.230, z = 30.4094, h = 317.0},
-        Ped = ''
-    },
-    { 
-        Pos   = {x = 239.471, y = -1380.960, z = 32.741}
-        Licenses = { 'bike', 'car', 'truck'},
-        VehicleSpawnPoint =  = {x = 249.409, y = -1407.230, z = 30.4094, h = 317.0},
-        Ped = ''
-    },
+        Pos = vector3(109.239563, -1089.019775, 29.296753),
+        Licenses = 'Bike,Car,Truck',
+        VehicleSpawnPoint = vector3(106.127472, -1069.186768, 29.178711),
+        Blip = {
+            Enabled = true,
+            Label = 'DMV',
+            Sprite = 498,
+            Color = 42,
+            Scale = 1.1
+        },
+        Ped = {
+            Pos   = vector3(109.239563, -1089.019775, 29.296753),
+            Model = `u_f_m_casinoshop_01`,
+        }
+    }
 }
 
 Config.Licenses = {
     Car = {
-       Price = 950, 
-       Model = ''
-       Questions = {
-            {
-                Text = "",
-                Options = {
-                    { text = "", correct = false}
-                    { text = "Correct", correct = true}
-                    { text = "", correct = false}
-                }
-            },
-            {
-                Text = "",
-                Options = {
-                    { text = "", correct = false}
-                    { text = "Correct", correct = true}
-                    { text = "", correct = false}
-                }
-            },
-            {
-                Text = "",
-                Options = {
-                    { text = "", correct = false}
-                    { text = "Correct", correct = true}
-                    { text = "", correct = false}
-                }
-            }
-       }
+       Price = 1, 
+       Model = 'asbo',
+       MinimumCorrectExam = 4,
+       QuestionnaireAmount = 5, 
     },
     Bike = {
+        PrerequiredLicense = 'car',
         Price = 1050, 
-        Model = ''
-        Questions = {
-             {
-                 Text = "",
-                 Options = {
-                     { text = "", correct = false}
-                     { text = "Correct", correct = true}
-                     { text = "", correct = false}
-                 }
-             },
-             {
-                 Text = "",
-                 Options = {
-                     { text = "", correct = false}
-                     { text = "Correct", correct = true}
-                     { text = "", correct = false}
-                 }
-             },
-             {
-                 Text = "",
-                 Options = {
-                     { text = "", correct = false}
-                     { text = "Correct", correct = true}
-                     { text = "", correct = false}
-                 }
-             }
-        }
-    }
+        ModelHash = 'bati',
+        MinimumCorrectExam = 4,
+        QuestionnaireAmount = 5, 
+    },
     Truck = {
+        PrerequiredLicense = 'car',
         Price = 2000, 
-        Model = ''
-        Questions = {
-             {
-                 Text = "",
-                 Options = {
-                     { text = "", correct = false}
-                     { text = "Correct", correct = true}
-                     { text = "", correct = false}
-                 }
-             },
-             {
-                 Text = "",
-                 Options = {
-                     { text = "", correct = false}
-                     { text = "Correct", correct = true}
-                     { text = "", correct = false}
-                 }
-             },
-             {
-                 Text = "",
-                 Options = {
-                     { text = "", correct = false}
-                     { text = "Correct", correct = true}
-                     { text = "", correct = false}
-                 }
-             }
-        }
+        ModelHash = 'flatbed',
+        MinimumCorrectExam = 4,
+        QuestionnaireAmount = 5, 
     }
 }

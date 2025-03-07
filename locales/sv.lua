@@ -1,0 +1,23 @@
+Locales['sv'] = {
+    ['press_e_dmv']    = 'Tryck [E]',
+    ['prerequired_license_dmv'] = '*Kräver %s körkort',
+    ['license_dmv'] = 'körkort',
+    ['select_license_dmv'] = 'Välj körkort',
+    ['results_dmv'] = 'Resultat',
+    ['you_failed_dmv'] = 'Du misslyckades',
+    ['you_passed_dmv'] = 'Du lyckades',
+    ['errors_dmv'] = 'Fel',
+    ['practical_dmv'] = 'Praktiskt',
+    ['exam_dmv'] = 'Prov',
+    ['questions_dmv'] = 'Frågor',
+    ['getready_dmv'] = 'Gör dig redo',
+    ['get_ready_text_dmv'] = 'You need to complete 2 steps to get your license. Start with the written exam and then you have to complete a driving course.',
+    ['car_dmv'] = 'Bil',
+    ['bike_dmv'] = 'Mc',
+    ['truck_dmv'] = 'Lastbil',
+    ['not_enough_money'] = 'Du har inte tillräckligt med pengar',
+    ['you_paid'] = 'Du betalade %skr',
+    ['you_not_on_road'] = 'Du kör inte på en väg',
+    ['you_ran_a_red_light'] = 'Du körde emot rött',
+    ['you_driving_against_traffic'] = 'Du kör i fel färdriktning'
+  }
