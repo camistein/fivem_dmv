@@ -20,5 +20,6 @@ Locales['en'] = {
     ['you_damaged_veh'] = 'You damage the vehicle',
     ['you_not_on_road'] = 'You\'re not on a road',
     ['you_ran_a_red_light'] = 'You ran a red light',
-    ['you_driving_against_traffic'] = 'You\'re driving against traffic'
+    ['you_driving_against_traffic'] = 'You\'re driving against traffic',
+    ['get_back_in_vehicle'] = "Get back in the car"
   }

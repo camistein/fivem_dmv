@@ -11,6 +11,8 @@ local DriveErrors = 0
 local activeBlips, markerPoints, dmvPoints, licenses = {}, {}, {}, {}
 local playerLoaded, uiActive, inMenu, drivingTestActive, displayWarning = false, false, false
 local warningCountdown, numWarnings = 0
+local countDown = 5
+local countDownActive = false
 
         function SCRIPTSTORM_DMV:Thread() 
             self:CreateBlips()
@@ -27,10 +29,14 @@ local warningCountdown, numWarnings = 0
                     if (IsPedOnFoot(data.ped) and not ESX.PlayerData.dead) and not inMenu then
                         for i = 1, #Config.DMV do
                             local dmvDistance = #(data.coord - Config.DMV[i].Pos)
-                            if dmvDistance <= 1 then
+                            if dmvDistance <= 3 then
                                 dmvPoints[#dmvPoints+1] = Config.DMV[i].Pos
                                 CurrentDMV = Config.DMV[i]
                                 self:LoadLicenses(CurrentDMV)
+                                break
+                            else 
+                                CurrentDMV = nil
+                                dmvPoints = {}
                             end
                             if Config.ShowMarker and dmvDistance <= (Config.DrawMarker or 10) then
                                 markerPoints[#markerPoints+1] = Config.DMV[i].Pos
@@ -57,7 +63,8 @@ local warningCountdown, numWarnings = 0
                 while playerLoaded do
                     if next(markerPoints) then
                         for i = 1, #markerPoints do
-                            DrawMarker(1, markerPoints[i].x, markerPoints[i].y, markerPoints[i].z, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.3, 0.2, 0.2, 187, 255, 0, 255, false, true, 2, false, nil, nil, false)
+                            DrawMarker(1, markerPoints[i].x, markerPoints[i].y, markerPoints[i].z,
+                             0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 187, 255, 0, 255, false, true, 2, false, nil, nil, false)
                         end
                         wait = 0
                     end
@@ -67,6 +74,18 @@ local warningCountdown, numWarnings = 0
 
             CreateThread(function() 
                 SCRIPTSTORM_DMV:CheckForDrivingErrors() 
+            end)
+
+            CreateThread(function() 
+                while countDownActive and drivingTestActive do 
+                    SendNUIMessage({
+                        showMenu = true,
+                        action = "showCountdown",
+                        data = {
+                            countdown = countdown
+                        },
+                    })
+                end 
             end)
         end
 
@@ -220,7 +239,7 @@ local warningCountdown, numWarnings = 0
                     Wait(200)
                 end
                 local npc = NetworkGetEntityFromNetworkId(netID)
-                TaskStartScenarioInPlace(npc, 'WORLD_HUMAN_CLIPBOARD', true)
+                TaskStartScenarioInPlace(npc, 'WORLD_HUMAN_CLIPBOARD', 0, true)
                 SetEntityProofs(npc, true, true, true, true, true, true, true, true)
                 SetBlockingOfNonTemporaryEvents(npc, true)
                 FreezeEntityPosition(npc, true)
@@ -228,12 +247,14 @@ local warningCountdown, numWarnings = 0
                 SetPedCanRagdoll(npc, false)
                 SetEntityAsMissionEntity(npc, true, true)
                 SetEntityDynamic(npc, false)
-                SetEntityInvincible(START_PED, true)
             end)
         end
 
         function SCRIPTSTORM_DMV:StartDrivingTest(state, vehicleType) 
             local playerHeading = GetEntityHeading(playerPed)
+            countDown = 5
+            countDownActive = false
+
             if CurrentDMV and CurrentDMV["AvailableLicenses"] ~= nil and 
             CurrentDMV["AvailableLicenses"][vehicleType:lower()] ~= nil and CurrentDMV.VehicleSpawnPoint then 
                 local vehicle = CurrentDMV["AvailableLicenses"][vehicleType:lower()]
@@ -351,6 +372,14 @@ local warningCountdown, numWarnings = 0
                 if drivingTestActive then 
                     local playerPed = PlayerPedId()
                     if IsPedInAnyVehicle(playerPed, false) then
+
+                        if countDownActive then 
+                            SendNUIMessage({
+                                showMenu = false,
+                            })
+                            countDownActive = false
+                            countDown = 5
+                        end 
                         local vehicle = GetVehiclePedIsIn(playerPed, false)
                         local coords = GetEntityCoords(PlayerPedId())
                         local speed = GetEntitySpeed(vehicle)
@@ -387,25 +416,35 @@ local warningCountdown, numWarnings = 0
                         end
 
                         if density == 8 then 
-                            local trafficLight = SCRIPTSTORM_DMV:GetClosestTrafficLight() 
-                            if trafficLight ~= 0 then 
-                                Citizen.Trace('trafficLight' ..trafficLight ..'\n')
-                            end
+                         /* TODO Loop through the mission traffic lights  */
                         end
 
                         if speed > maxSpeed then 
                             ESX.ShowNotification(TranslateCap('driving_too_fast'))
                         end
-        /*
-                        local pointOnRoad = IsPointOnRoad(coords.x, coords.y, coords.z)
-                        if pointOnRoad then 
-                            Citizen.Trace('-' ..pointOnRoad)
-                        end*/
-        
-                        /*local vehicleNodeProps = GetVehicleNodeProperties(coords.x, coords.y, coords.z)
-                        if vehicleNodeProps then
-                            Citizen.Trace('-' ..vehicleNodeProps)
-                        end*/
+                    end
+
+                    if not IsPedInAnyVehicle(playerPed, false) or IsPlayerDead(playerPed) then
+                        sleep = 1000
+                        countDownActive = true 
+                        if countDown == 0 then 
+                            DeleteVehicle(CurrentVehicle)
+                            CurrentVehicle = nil
+                            SendNUIMessage({
+                                showMenu = false,
+                            })
+                            drivingTestActive = false
+                        else
+                            countDown -= 1
+                            SendNUIMessage({
+                                showMenu = true,
+                                action = "showCountdown",
+                                data = {
+                                    countdown = countDown,
+                                    text = TranslateCap('get_back_in_vehicle'),
+                                },
+                            })
+                        end
                     end
                 end
     

@@ -95,19 +95,42 @@ body {
   align-items: center;
 }
 
-.scst__container {
+.scst__gradient--green {
+  background: linear-gradient(
+    135deg,
+    rgba(0, 0, 0, 0.9) 0%,
+    rgba(0, 0, 0, 0.9) 33%,
+    rgba(0, 0, 0, 0.9) 68%,
+    rgba(1, 23, 16, 0.9) 100%
+  );
+}
+
+.scst__gradient--notification {
+  background: linear-gradient(
+    135deg,
+    rgba(0, 0, 0, 0.8) 0%,
+    rgba(0, 0, 0, 0.8) 33%,
+    rgba(0, 0, 0, 0.8) 68%,
+    rgba(1, 23, 16, 0.8) 100%
+  );
+}
+
+.scst__gradient {
   background: linear-gradient(
     135deg,
     rgba(0, 0, 0, 0.9) 0%,
     rgba(0, 0, 0, 0.9) 55%,
     rgba(50, 50, 50, 0.9) 100%
   );
+}
+
+.scst__container {
   border: 1px solid var(--color-neutral-dark);
   border-radius: var(--border-radius-lg);
   width: var(--menu-width);
   height: auto;
   padding: 2rem 1.75rem;
-  padding-bottom: 5.75rem;
+  padding-bottom: 2.75rem;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -116,11 +139,31 @@ body {
   overflow: hidden;
 }
 
+.scst__container--blank {
+  background: transparent;
+  border: none;
+}
+
 .scst__container__header {
   display: flex;
   flex-direction: row;
   width: 100%;
   justify-content: space-between;
+  position: absolute;
+  top: 0;
+  padding: 1.75rem;
+}
+
+.scst__page {
+  min-height: 48rem;
+}
+
+.scst__w-half {
+  width: 50%;
+}
+
+.scst__w-full {
+  width: 100%;
 }
 
 .scst__logo {
@@ -254,6 +297,13 @@ body {
   letter-spacing: 1px;
 }
 
+.scst__notification {
+  text-align: center;
+  font-size: 4rem;
+  padding: 2rem 8.75rem;
+  border-radius: var(--border-radius-lg);
+}
+
 .scst__sub {
   position: absolute;
   right: 25%;
@@ -261,6 +311,10 @@ body {
   font-size: 1rem;
   letter-spacing: 3px;
   text-shadow: 1px 1px 2px #000;
+}
+
+.scst__text--heading {
+  font-size: 2rem;
 }
 
 .scst__vehicle-list {
@@ -404,7 +458,7 @@ body {
 
 .scst__btn {
   border-radius: 1.5rem;
-  padding: 0.75rem 1.75rem;
+  padding: 0.875rem 2rem;
   font-family: "Horizon";
   font-weight: 700;
   font-size: 1.375rem;

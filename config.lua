@@ -16,9 +16,9 @@ Config.SpeedLimits = {
 
 Config.DMV = {
     { 
-        Pos = vector3(109.239563, -1089.019775, 29.296753),
+        Pos = vector3(109.239563, -1089.019775, 28.28),
         Licenses = 'Bike,Car,Truck',
-        VehicleSpawnPoint = vector3(106.127472, -1069.186768, 29.178711),
+        VehicleSpawnPoint = vector3(106.127472, -1069.186768, 29.296753),
         Blip = {
             Enabled = true,
             Label = 'DMV',
@@ -28,7 +28,7 @@ Config.DMV = {
         },
         Ped = {
             Pos   = vector3(109.239563, -1089.019775, 29.296753),
-            Model = `u_f_m_casinoshop_01`,
+            Model = `u_f_m_debbie_01`,
         }
     }
 }

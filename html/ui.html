@@ -11,7 +11,7 @@
             <div id="scst-dmv" class="scst__dmv"></div>
         </div>
         <script id="scst-dmv-base-template" type="text/x-handlebars-template">
-            <div class="scst__container">
+            <div class="scst__container scst__gradient--green scst__page">
                 <div class="scst__container__header">
                     <div class="scst__logo">
                     </div>
@@ -28,6 +28,14 @@
                 </div>
                 <div class="scst__main__content">
                     {{{content}}}
+                </div>
+            </div>
+        </script>
+        <script id="scst-dmv-countdown-template" type="text/x-handlebars-template">
+            <div class=" scst__w-full scst__container scst__gradient--notification scst__notification">
+                <div class="scst__flex scst__flex--col  scst__flex--gap-sm scst__text--white scst__text--uppercase scst__text--horizon">
+                    <h2 class="scst__h2">{{text}}</h2>
+                    <span class="">{{number}}</span>
                 </div>
             </div>
         </script>
@@ -168,10 +176,8 @@
                         <p class="scst__text--white scst__text--font2 scst__body scst__text-margin-top">
                             {{translations.getReadyText}}
                         </p>
-                        <div class="scst__flex scst__flex--col">
                             <div class="scst__list">
-                                <div>
-                                    {{license.passedExam}}
+                                <div class="scst__flex scst__flex--col scst__flex--gap-sm">
                                     {{#if license.passedExam}}
                                         <div class="scst__btn scst__btn--green cursor-pointer" onclick="SCST_DMV.startDrivingTest()"> 
                                             {{translations.practical}}
@@ -193,7 +199,6 @@
                                     {{/if}}
                                 </div>
                             </div>
-                        </div>
                     </div>
                 </div>
             </div>

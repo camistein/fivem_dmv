@@ -19,5 +19,6 @@ Locales['sv'] = {
     ['you_paid'] = 'Du betalade %skr',
     ['you_not_on_road'] = 'Du kör inte på en väg',
     ['you_ran_a_red_light'] = 'Du körde emot rött',
-    ['you_driving_against_traffic'] = 'Du kör i fel färdriktning'
+    ['you_driving_against_traffic'] = 'Du kör i fel färdriktning',
+    ['get_back_in_vehicle'] = "Sätt dig i bilen igen"
   }
